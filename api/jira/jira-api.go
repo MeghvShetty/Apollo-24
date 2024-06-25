@@ -17,18 +17,6 @@ const BaseUrl string = "https://cavertech.atlassian.net"
 const cookie string = "cookie token"
 const Authorization = "Authorization code"
 
-type JiraIssuePayload struct {
-	Fields struct {
-		Summary   string `json:"summary"`
-		Issuetype struct {
-			Name string `json:"name"`
-		} `json:"issuetype"`
-		Project struct {
-			Key string `json:"key"`
-		} `json:"project"`
-	} `json:"fields"`
-}
-
 /*
 	Jira auth handle api request use base auth.
 
