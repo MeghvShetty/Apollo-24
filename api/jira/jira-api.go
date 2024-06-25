@@ -50,6 +50,14 @@ func JiraAuth(method, urlExt string, payload []byte) (string, error) {
 	return string(body), nil
 }
 
+/*
+CreateIssue for the given project key.
+param : nil
+returns :
+
+	Jira id, issue number with url to the ticket
+	error message
+*/
 func CreateIssue() {
 	urlExt := "/rest/api/2/issue"
 	method := "POST"
