@@ -7,6 +7,8 @@ Jira REST API doc https://developer.atlassian.com/cloud/jira/platform/basic-auth
 package jira
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -31,8 +33,8 @@ return :
 	api results
 	error
 */
-func JiraAuth(method, urlExt, payload string) (string, error) {
-	req, err := http.NewRequest(method, BaseUrl+urlExt, nil)
+func JiraAuth(method, urlExt string, payload []byte) (string, error) {
+	req, err := http.NewRequest(method, BaseUrl+urlExt, bytes.NewReader(payload))
 	if err != nil {
 		return "req", fmt.Errorf("failed to fetch url: %w", err)
 	}
@@ -46,4 +48,39 @@ func JiraAuth(method, urlExt, payload string) (string, error) {
 	defer result.Body.Close()
 	body, _ := io.ReadAll((result.Body))
 	return string(body), nil
+}
+
+/*
+CreateIssue for the given project key.
+param : nil
+returns :
+
+	Jira id, issue number with url to the ticket
+	error message
+*/
+func CreateIssue() {
+	urlExt := "/rest/api/2/issue"
+	method := "POST"
+
+	// Static typed payload
+	payload := map[string]interface{}{
+		"fields": map[string]interface{}{
+			"description": "This is from Apollo",
+			"summary":     "Apollo 24 is here",
+			"issuetype": map[string]interface{}{
+				"name": "Story",
+			},
+			"project": map[string]interface{}{
+				"key": "A2",
+			},
+		},
+	}
+
+	//Encoding payload map[string]interface{} into Json data type
+	jsonData, err := json.Marshal(payload)
+	if err != nil {
+		fmt.Println("Error marshalling JSON:", err)
+		return
+	}
+	fmt.Println(JiraAuth(method, urlExt, jsonData))
 }
