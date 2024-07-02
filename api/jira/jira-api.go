@@ -12,12 +12,28 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strings"
+	"time"
 )
 
 // Cookie & Authorization will pull the token during run time from aws secrect manager.
 const BaseUrl string = "https://cavertech.atlassian.net"
-const cookie string = "cookie token"
-const Authorization = "Authorization code"
+const cookie string = ""
+const Authorization = ""
+
+type IssueTemplate struct {
+	SINumber              string
+	SILink                string
+	BIARecord             string
+	ProjectOverview       string
+	PlatformName          string
+	LabName               string
+	GW1Date               string
+	SolutionArchitectName string
+	ProjectName           string
+	SIRrating             []string
+	DataClassification    string
+}
 
 /*
 	Jira auth handle api request use base auth.
@@ -52,35 +68,47 @@ func JiraAuth(method, urlExt string, payload []byte) (string, error) {
 
 /*
 CreateIssue for the given project key.
-param : nil
+param : IssueTemplate Struct
 returns :
 
 	Jira id, issue number with url to the ticket
 	error message
 */
-func CreateIssue() {
+func CreateIssue(p *IssueTemplate) (string, error) {
 	urlExt := "/rest/api/2/issue"
 	method := "POST"
+
+	// Issue naming convention
+	var ticketName string = p.SINumber + "_" + p.LabName + "_" + p.ProjectName
+
+	// Validate date formatting
+	var dueDateInput = strings.TrimSpace(p.GW1Date)
+	_, err := time.Parse("2006-01-02", dueDateInput)
+	if err != nil {
+		return "date formatting ", fmt.Errorf("invalid date format. please use yyyy-mm-dd.: %w", err)
+
+	}
 
 	// Static typed payload
 	payload := map[string]interface{}{
 		"fields": map[string]interface{}{
-			"description": "This is from Apollo",
-			"summary":     "Apollo 24 is here",
+			"description": "Project Name: " + p.ProjectName + "\n Platform Name: " + p.PlatformName + "\n Lab Name: " + p.LabName + "\n SI Number: " + p.SINumber + "\n SI Link: " + p.SILink + "\n Data Classification: " + p.DataClassification + "\n BIA Link: " + p.BIARecord + "\n Solution Architect: " + p.SolutionArchitectName + "\n Project Overview: " + p.ProjectOverview,
+			"summary":     ticketName,
 			"issuetype": map[string]interface{}{
 				"name": "Story",
 			},
 			"project": map[string]interface{}{
 				"key": "A2",
 			},
+			"customfield_10034": dueDateInput,
+			"labels":            p.SIRrating,
 		},
 	}
 
 	//Encoding payload map[string]interface{} into Json data type
 	jsonData, err := json.Marshal(payload)
 	if err != nil {
-		fmt.Println("Error marshalling JSON:", err)
-		return
+		return "json", fmt.Errorf("error marshalling JSON: %w", err)
 	}
-	fmt.Println(JiraAuth(method, urlExt, jsonData))
+	return JiraAuth(method, urlExt, jsonData)
 }
