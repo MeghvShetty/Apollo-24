@@ -3,13 +3,15 @@ on:
   pull_request: {}
   push:
     branches:
-    - main
+      - main
     paths:
-    - .github/workflows/semgrep.yml
+      - .github/workflows/semgrep.yml
   schedule:
-  # random HH:MM to avoid a load spike on GitHub Actions at 00:00
-  - cron: 28 17 * * *
+    # random HH:MM to avoid a load spike on GitHub Actions at 00:00
+    - cron: '28 17 * * *'
+
 name: Semgrep
+
 jobs:
   semgrep:
     name: semgrep/ci
@@ -19,5 +21,17 @@ jobs:
     container:
       image: returntocorp/semgrep
     steps:
-    - uses: actions/checkout@v3
-    - run: semgrep ci
+      - uses: actions/checkout@v3
+      - run: semgrep ci
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Secret Scanning
+        uses: trufflesecurity/trufflehog@main
+        with:
+          extra_args: --only-verified
