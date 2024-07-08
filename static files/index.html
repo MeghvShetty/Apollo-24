@@ -1,5 +1,151 @@
 <!DOCTYPE html>
-<html lang = "en">
-    <head></head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apollo 24</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.min.css">
+    <style>
+        body {
+            margin: 2rem;
+        }
+        .form-section {
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Security Impact Rating</h1>
+
+    <form hx-post="/submit-form" hx-trigger="submit" hx-target="#response">
+        <!-- IssueTemplate fields -->
+        <div class="form-section">
+            <label for="SINumber">SI Number</label>
+            <input type="text" id="SINumber" name="SINumber" required>
+        </div>
+        
+        <div class="form-section">
+            <label for="SILink">SI Link</label>
+            <input type="url" id="SILink" name="SILink" required>
+        </div>
+
+        <div class="form-section">
+            <label for="BIARecord">BIA Record</label>
+            <input type="text" id="BIARecord" name="BIARecord" required>
+        </div>
+
+        <div class="form-section">
+            <label for="ProjectOverview">Project Overview</label>
+            <textarea id="ProjectOverview" name="ProjectOverview" required></textarea>
+        </div>
+
+        <div class="form-section">
+            <label for="PlatformName">Platform Name</label>
+            <input type="text" id="PlatformName" name="PlatformName" required>
+        </div>
+
+        <div class="form-section">
+            <label for="LabName">Lab Name</label>
+            <input type="text" id="LabName" name="LabName" required>
+        </div>
+
+        <div class="form-section">
+            <label for="GW1Date">GW1 Date</label>
+            <input type="date" id="GW1Date" name="GW1Date" required>
+        </div>
+
+        <div class="form-section">
+            <label for="SolutionArchitectName">Solution Architect Name</label>
+            <input type="text" id="SolutionArchitectName" name="SolutionArchitectName" required>
+        </div>
+
+        <div class="form-section">
+            <label for="ProjectName">Project Name</label>
+            <input type="text" id="ProjectName" name="ProjectName" required>
+        </div>
+
+        <div class="form-section">
+            <label for="SIRrating">SIR Rating</label>
+            <select id="SIRrating" name="SIRrating" multiple required>
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
+        </div>
+
+        <!-- TriageInput fields -->
+        <div class="form-section">
+            <label for="DataClassification">Data Classification</label>
+            <select id="DataClassification" name="DataClassification" multiple required>
+                <option value="Low">Limited</option>
+                <option value="Medium">Confidential</option>
+                <option value="High">Highly Confidential</option>
+            </select>
+        </div>
+
+        <div class="form-section">
+            <label for="MultipleReleaseOveryear">Multiple Release Over Year</label>
+            <select id="MultipleReleaseOveryear" name="MultipleReleaseOveryear" multiple required>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+
+        <div class="form-section">
+            <label for="IntegrityRating">Integrity Rating</label>
+            <select id="IntegrityRating" name="IntegrityRating" multiple required>
+            <option value="sever">Sever</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+            </select>
+        </div>
+
+        <div class="form-section">
+            <label for="NewInfrastructure">New Infrastructure</label>
+            <select id="NewInfrastructure" name="NewInfrastructure" multiple required>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+
+        <div class="form-section">
+            <label for="NewConnectivity">New Connectivity</label>
+            <select id="NewConnectivity" name="NewConnectivity" multiple required>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+
+        <div class="form-section">
+            <label for="RegulatoryRequirement">Regulatory Requirement</label>
+            <select id="RegulatoryRequirement" name="RegulatoryRequirement" multiple required>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+
+        <div class="form-section">
+            <label for="UserImpact">User Impact</label>
+            <input type="text" id="UserImpact" name="UserImpact" required>
+        </div>
+
+        <div class="form-section">
+            <label for="PatternUsed">Pattern Used</label>
+            <select id="PatternUsed" name="PatternUsed" multiple required>
+                <option value="New">New</option>
+                <option value="Hybrid">Hybrid</option>
+                <option value="Existing">Existing</option>
+            </select>
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="response"></div>
+
+    <script src="https://unpkg.com/htmx.org@1.9.0"></script>
+</body>
 </html>
-<h1>Welcome to apollo-24</h1>
