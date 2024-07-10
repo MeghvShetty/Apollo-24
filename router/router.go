@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/The-Manchester-Project/Apollo-24/api/jira"
 	"github.com/The-Manchester-Project/Apollo-24/logic"
 	"github.com/gin-gonic/gin"
 )
@@ -22,15 +23,23 @@ func WebServer() {
 
 	router.POST("/submit-form", func(ctx *gin.Context) {
 		var triageInput logic.TriageInput
+		var jiraTemple jira.IssueTemplate
 		if err := ctx.ShouldBind(&triageInput); err != nil {
 			ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
-		output := logic.SirCalculator(&triageInput)
+
+		if err := ctx.ShouldBind(&jiraTemple); err != nil {
+			ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		sir_rating := logic.SirCalculator(&triageInput)
 
 		ctx.HTML(http.StatusOK, "response.html", gin.H{
-			"output":      output,
-			"TriageInput": triageInput,
+			"SirRating":     sir_rating,
+			"TriageInput":   triageInput,
+			"IssueTemplate": jiraTemple,
 		})
 	})
 
