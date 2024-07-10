@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/The-Manchester-Project/Apollo-24/logic"
+	"github.com/The-Manchester-Project/Apollo-24/router"
 )
 
 func main() {
@@ -35,4 +36,6 @@ func main() {
 	}
 
 	fmt.Println(logic.SirCalculator(Input))
+
+	router.WebServer()
 }
