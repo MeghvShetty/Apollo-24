@@ -12,17 +12,17 @@ type TriageInput struct {
 }
 
 func SirCalculator(input *TriageInput) string {
-	var sir string = "0"
+	var sir string = "SIR0"
 
 	if ((input.DataClassification == "Highly Confidential" || input.DataClassification == "Confidential") && (input.IntegrityRating == "Severe" || input.IntegrityRating == "High") && input.MultipleReleaseOveryear == "Yes") && (input.PatternUsed == "Hybrid" ||
 		input.PatternUsed == "New") {
-		sir = "3"
+		sir = "SIR3"
 	} else if (input.NewInfrastructure == "Yes" || input.NewConnectivity == "Yes" && input.MultipleReleaseOveryear == "Yes") && (input.PatternUsed == "Hybrid" || input.PatternUsed == "New") {
-		sir = "2"
+		sir = "SIR2"
 	} else if (input.NewInfrastructure == "Yes" || input.NewConnectivity == "Yes" || input.RegulatoryRequirement == "Yes" || input.UserImpact == ">10,000") && (input.PatternUsed == "Hybrid" || input.PatternUsed == "New") {
-		sir = "1"
+		sir = "SIR1"
 	} else {
-		sir = "0"
+		sir = "SIR0"
 	}
 
 	return sir
