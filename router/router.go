@@ -5,7 +5,6 @@ Apollo-24 routing handler
 package router
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 
@@ -27,16 +26,13 @@ func WebServer() {
 			ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
-		fmt.Println(logic.SirCalculator(&triageInput))
+		output := logic.SirCalculator(&triageInput)
+
+		ctx.HTML(http.StatusOK, "response.html", gin.H{
+			"output":      output,
+			"TriageInput": triageInput,
+		})
 	})
 
-	// router.POST("/submit-form", func(ctx *gin.Context) {
-	// 	var triageInput logic.TriageInput
-	// 	if err := ctx.ShouldBind(&triageInput); err != nil {
-	// 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-	// 		return
-	// 	}
-
-	// })
 	log.Fatal(router.Run(":3000"))
 }
