@@ -10,7 +10,6 @@
     <p><strong>GW1 Date:</strong> {{.IssueTemplate.GW1Date}}</p>
     <p><strong>Solution Architect Name:</strong> {{.IssueTemplate.SolutionArchitectName}}</p>
     <p><strong>Project Name:</strong> {{.IssueTemplate.ProjectName}}</p>
-    <p><strong>SIR Rating:</strong> {{range .IssueTemplate.SIRrating}} {{.}} {{end}}</p>
     <p><strong>Data Classification:</strong> {{.IssueTemplate.DataClassification}}</p>
     <p><strong>Multiple Release Over Year:</strong> {{.TriageInput.MultipleReleaseOveryear}}</p>
     <p><strong>Integrity Rating:</strong> {{.TriageInput.IntegrityRating}}</p>
@@ -19,5 +18,6 @@
     <p><strong>Regulatory Requirement:</strong> {{.TriageInput.RegulatoryRequirement}}</p>
     <p><strong>User Impact:</strong> {{.TriageInput.UserImpact}}</p>
     <p><strong>Pattern Used:</strong> {{.TriageInput.PatternUsed}}</p>
-    <p><strong>Security Impact rating: </strong>{{.output}}</p>
+    <p><strong>Security Impact rating: </strong>{{.SirRating}}</p>
+    <p><strong>Security Engineering Jira: </strong></p>
 </div>
