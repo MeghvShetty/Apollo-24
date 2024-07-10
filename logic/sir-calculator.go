@@ -1,14 +1,14 @@
 package logic
 
 type TriageInput struct {
-	DataClassification      string
-	MultipleReleaseOveryear string
-	IntegrityRating         string
-	NewInfrastructure       string
-	NewConnectivity         string
-	RegulatoryRequirement   string
-	UserImpact              string
-	PatternUsed             string
+	DataClassification      string `form:DataClassification" binding:"required"`
+	MultipleReleaseOveryear string `form:MultipleReleaseOveryear" binding:"required"`
+	IntegrityRating         string `form:IntegrityRating" binding:"required"`
+	NewInfrastructure       string `form:NewInfrastructure" binding:"required"`
+	NewConnectivity         string `form:NewConnectivity" binding:"required"`
+	RegulatoryRequirement   string `form:RegulatoryRequirement" binding:"required"`
+	UserImpact              string `form:UserImpact" binding:"required"`
+	PatternUsed             string `form:PatterUsed" binding:"required"`
 }
 
 func SirCalculator(input *TriageInput) string {
