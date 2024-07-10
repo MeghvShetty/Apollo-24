@@ -22,17 +22,17 @@ const cookie string = ""
 const Authorization = ""
 
 type IssueTemplate struct {
-	SINumber              string
-	SILink                string
-	BIARecord             string
-	ProjectOverview       string
-	PlatformName          string
-	LabName               string
-	GW1Date               string
-	SolutionArchitectName string
-	ProjectName           string
+	SINumber              string `form:SINumber" binding:"required"`
+	SILink                string `form:SILink" binding:"required"`
+	BIARecord             string `form:BIARecord" binding:"required"`
+	ProjectOverview       string `form:ProjectOverview" binding:"required"`
+	PlatformName          string `form:PlatformName" binding:"required"`
+	LabName               string `form:LabName" binding:"required"`
+	GW1Date               string `form:GW1Date" binding:"required"`
+	SolutionArchitectName string `form:SolutionArchitectName" binding:"required"`
+	ProjectName           string `form:ProjectName" binding:"required"`
 	SIRrating             []string
-	DataClassification    string
+	DataClassification    string `form:DataClassification" binding:"required"`
 }
 
 /*
