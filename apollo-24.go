@@ -1,9 +1,6 @@
 package main
 
 import (
-	"fmt"
-
-	"github.com/The-Manchester-Project/Apollo-24/logic"
 	"github.com/The-Manchester-Project/Apollo-24/router"
 )
 
@@ -24,18 +21,18 @@ func main() {
 
 	// jira.CreateIssue(NewIssue)
 
-	Input := &logic.TriageInput{
-		DataClassification:      "Confidential",
-		MultipleReleaseOveryear: "Yes",
-		IntegrityRating:         "High",
-		NewInfrastructure:       "Yes",
-		NewConnectivity:         "No",
-		RegulatoryRequirement:   "Yes",
-		UserImpact:              ">10,000",
-		PatternUsed:             "New",
-	}
+	// Input := &logic.TriageInput{
+	// 	DataClassification:      "Confidential",
+	// 	MultipleReleaseOveryear: "Yes",
+	// 	IntegrityRating:         "High",
+	// 	NewInfrastructure:       "Yes",
+	// 	NewConnectivity:         "No",
+	// 	RegulatoryRequirement:   "Yes",
+	// 	UserImpact:              ">10,000",
+	// 	PatternUsed:             "New",
+	// }
 
-	fmt.Println(logic.SirCalculator(Input))
+	// fmt.Println(logic.SirCalculator(Input))
 
 	router.WebServer()
 }
