@@ -1,6 +1,9 @@
 package main
 
-import "github.com/The-Manchester-Project/Apollo-24/api/jira"
+import (
+	"github.com/The-Manchester-Project/Apollo-24/api/jira"
+	"github.com/The-Manchester-Project/Apollo-24/router"
+)
 
 func main() {
 	NewIssue := &jira.IssueTemplate{
@@ -18,4 +21,5 @@ func main() {
 	}
 
 	jira.CreateIssue(NewIssue)
+	router.WebServer()
 }
