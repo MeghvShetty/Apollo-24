@@ -65,5 +65,5 @@ func WebServer() {
 		})
 	})
 
-	log.Fatal(router.Run(":3000"))
+	log.Fatal(router.Run("0.0.0.0:80"))
 }
