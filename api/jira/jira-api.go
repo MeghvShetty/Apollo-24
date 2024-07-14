@@ -53,17 +53,17 @@ return :
 func JiraAuth(method, urlExt string, payload []byte) (string, error) {
 	req, err := http.NewRequest(method, BaseUrl+urlExt, bytes.NewReader(payload))
 	if err != nil {
-		return "req", fmt.Errorf("failed to fetch url: %w", err)
+		return "", fmt.Errorf("failed to fetch url: %w", err)
 	}
 	req.Header.Add("cookie", cookie)
 	req.Header.Add("Content-Type", "application/json")
 	req.Header.Add("Authorization", Authorization)
 	result, err := http.DefaultClient.Do(req)
 	if err != nil {
-		return "results", fmt.Errorf("failed to fetch Jira metadata: %w", err)
+		return "", fmt.Errorf("failed to fetch Jira metadata: %w", err)
 	}
 	defer result.Body.Close()
-	body, _ := io.ReadAll((result.Body))
+	body, _ := io.ReadAll(result.Body)
 	return string(body), nil
 }
 
@@ -86,8 +86,7 @@ func CreateIssue(p *IssueTemplate) (string, error) {
 	var dueDateInput = strings.TrimSpace(p.GW1Date)
 	_, err := time.Parse("2006-01-02", dueDateInput)
 	if err != nil {
-		return "date formatting ", fmt.Errorf("invalid date format. please use yyyy-mm-dd.: %w", err)
-
+		return "", fmt.Errorf("invalid date format. please use yyyy-mm-dd.: %w", err)
 	}
 
 	// Static typed payload
@@ -106,10 +105,16 @@ func CreateIssue(p *IssueTemplate) (string, error) {
 		},
 	}
 
-	//Encoding payload map[string]interface{} into Json data type
+	// Encoding payload map[string]interface{} into Json data type
 	jsonData, err := json.Marshal(payload)
 	if err != nil {
-		return "json", fmt.Errorf("error marshalling JSON: %w", err)
+		return "", fmt.Errorf("error marshalling JSON: %w", err)
 	}
-	return JiraAuth(method, urlExt, jsonData)
+
+	result, err := JiraAuth(method, urlExt, jsonData)
+	if err != nil {
+		return "", fmt.Errorf("failed to create issue: %w", err)
+	}
+
+	return result, nil
 }
