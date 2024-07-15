@@ -22,7 +22,7 @@ type Issue struct {
 // Fields represents the 'fields' field within the Issue in the webhook payload
 type Fields struct {
 	Summary       string   `json:"summary"`
-	Assignee      Assignee `json:"assignee"`
+	Assignee      string   `json:"assignee"`
 	CustomField34 string   `json:"customfield_10034"`
 	Description   string   `json:"description"`
 	Labels        []string `json:"labels"`
