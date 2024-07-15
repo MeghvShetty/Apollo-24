@@ -22,10 +22,14 @@ type Issue struct {
 // Fields represents the 'fields' field within the Issue in the webhook payload
 type Fields struct {
 	Summary       string   `json:"summary"`
-	Assignee      string   `json:"assignee"`
+	Assignee      Assignee `json:"assignee"`
 	CustomField34 string   `json:"customfield_10034"`
 	Description   string   `json:"description"`
 	Labels        []string `json:"labels"`
+}
+
+type Assignee struct {
+	DisplayName string `json:"displayName"`
 }
 
 // WebhookHandler handles incoming webhook requests
