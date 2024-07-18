@@ -1,6 +1,7 @@
 package webhook
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -146,6 +147,12 @@ type ChangeItem struct {
 	ToString   string      `json:"toString"`
 }
 
+type CreateIssueResponse struct {
+	ID   string `json:"id"`
+	Key  string `json:"key"`
+	Self string `json:"self"`
+}
+
 func WebhookHandler(c *gin.Context) {
 	var payload WebhookPayload
 
@@ -172,7 +179,13 @@ func WebhookHandler(c *gin.Context) {
 	if NewIssue.Changelog == "Peer-review" {
 		comment, _ := jira.CreateIssueAA(NewIssue)
 		IssueId := payload.Issue.Key
-		jira.AddComments(IssueId, comment)
+
+		var createIssueResponse CreateIssueResponse
+		if err := json.Unmarshal([]byte(comment), &createIssueResponse); err != nil {
+
+			return
+		}
+		jira.AddComments(IssueId, createIssueResponse.Key)
 	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "Webhook received and processed successfully"})
