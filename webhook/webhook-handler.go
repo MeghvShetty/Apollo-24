@@ -169,9 +169,8 @@ func WebhookHandler(c *gin.Context) {
 		Changelog:    payload.Issue.Fields.Status.Name,
 	}
 
-	// // jira.CreateIssueAA(NewIssue)
 	if NewIssue.Changelog == "Peer-review" {
-		fmt.Println(NewIssue)
+		jira.CreateIssueAA(NewIssue)
 	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "Webhook received and processed successfully"})
