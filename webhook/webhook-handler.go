@@ -170,7 +170,9 @@ func WebhookHandler(c *gin.Context) {
 	}
 
 	// // jira.CreateIssueAA(NewIssue)
-	fmt.Println(NewIssue)
+	if NewIssue.Changelog == "Peer-review" {
+		fmt.Println(NewIssue)
+	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "Webhook received and processed successfully"})
 }
