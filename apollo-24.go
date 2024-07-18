@@ -1,8 +1,6 @@
 package main
 
-import (
-	"github.com/The-Manchester-Project/Apollo-24/router"
-)
+import "github.com/The-Manchester-Project/Apollo-24/router"
 
 func main() {
 	// NewIssue := &jira.IssueTemplate{
@@ -19,20 +17,16 @@ func main() {
 	// 	DataClassification:    "Confidential",
 	// }
 
-	// jira.CreateIssue(NewIssue)
-
-	// Input := &logic.TriageInput{
-	// 	DataClassification:      "Confidential",
-	// 	MultipleReleaseOveryear: "Yes",
-	// 	IntegrityRating:         "High",
-	// 	NewInfrastructure:       "Yes",
-	// 	NewConnectivity:         "No",
-	// 	RegulatoryRequirement:   "Yes",
-	// 	UserImpact:              ">10,000",
-	// 	PatternUsed:             "New",
+	// NewIssue := &jira.AARep{
+	// 	SIRrating:    []string{"SIRC"},
+	// 	IssueName:    "Testing",
+	// 	DueDate:      "2024-12-08",
+	// 	Description:  "Man is a Man",
+	// 	AssigneeName: "Megh ",
 	// }
-
-	// fmt.Println(logic.SirCalculator(Input))
-
+	// jira.AddComments("A2-78", "GOV-2")
+	// fmt.Println(jira.CreateIssueAA(NewIssue))
+	// // fmt.Println(jira.CreateIssue(NewIssue))
 	router.WebServer()
+
 }

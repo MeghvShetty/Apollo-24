@@ -12,6 +12,7 @@ import (
 
 	"github.com/The-Manchester-Project/Apollo-24/api/jira"
 	"github.com/The-Manchester-Project/Apollo-24/logic"
+	"github.com/The-Manchester-Project/Apollo-24/webhook"
 	"github.com/gin-gonic/gin"
 )
 
@@ -23,6 +24,8 @@ type CreateIssueResponse struct {
 
 func WebServer() {
 	router := gin.Default()
+
+	router.POST("/webhook", webhook.WebhookHandler)
 
 	router.LoadHTMLGlob("templates/*")
 	router.GET("/", func(ctx *gin.Context) {
@@ -65,5 +68,9 @@ func WebServer() {
 		})
 	})
 
-	log.Fatal(router.Run(":3000"))
+	// Load the certificate and key files
+	certFile := "/etc/letsencrypt/live/mcrproj.com/fullchain.pem"
+	keyFile := "/etc/letsencrypt/live/mcrproj.com/privkey.pem"
+
+	log.Fatal(router.RunTLS("0.0.0.0:443", certFile, keyFile))
 }
