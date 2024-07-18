@@ -100,7 +100,7 @@ func CreateIssue(p *IssueTemplate) (string, error) {
 	// Static typed payload
 	payload := map[string]interface{}{
 		"fields": map[string]interface{}{
-			"description": "Project Name: " + p.ProjectName + "\n Platform Name: " + p.PlatformName + "\n Lab Name: " + p.LabName + "\n SI Number: " + p.SINumber + "\n SI Link: " + p.SILink + "\n Data Classification: " + p.DataClassification + "\n BIA Link: " + p.BIARecord + "\n Solution Architect: " + p.SolutionArchitectName + "\n Project Overview: " + p.ProjectOverview + "\n SDA link :",
+			"description": "Project Name: " + p.ProjectName + "\n Platform Name: " + p.PlatformName + "\n Lab Name: " + p.LabName + "\n SI Number: " + p.SINumber + "\n SI Link: " + p.SILink + "\n Data Classification: " + p.DataClassification + "\n BIA Link: " + p.BIARecord + "\n Solution Architect: " + p.SolutionArchitectName + "\n Project Overview: " + p.ProjectOverview + "\n SDA link: ",
 			"summary":     ticketName,
 			"issuetype": map[string]interface{}{
 				"name": "Story",
@@ -131,9 +131,6 @@ func CreateIssueAA(p *AARep) (string, error) {
 	urlExt := "/rest/api/2/issue"
 	method := "POST"
 
-	// Issue naming convention
-	var IssueDsc string = p.Description + "/n Security Engineer" + p.AssigneeName
-
 	// Validate date formatting
 	var dueDateInput = strings.TrimSpace(p.DueDate)
 	_, err := time.Parse("2006-01-02", dueDateInput)
@@ -144,7 +141,7 @@ func CreateIssueAA(p *AARep) (string, error) {
 	// Static typed payload
 	payload := map[string]interface{}{
 		"fields": map[string]interface{}{
-			"description": IssueDsc,
+			"description": p.Description + "/n Security Engineer" + p.AssigneeName,
 			"summary":     p.IssueName,
 			"issuetype": map[string]interface{}{
 				"name": "Story",
