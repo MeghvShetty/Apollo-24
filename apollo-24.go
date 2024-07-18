@@ -24,8 +24,9 @@ func main() {
 	// 	Description:  "Man is a Man",
 	// 	AssigneeName: "Megh ",
 	// }
-
+	// jira.AddComments("A2-78", "GOV-2")
 	// fmt.Println(jira.CreateIssueAA(NewIssue))
 	// // fmt.Println(jira.CreateIssue(NewIssue))
 	router.WebServer()
+
 }
