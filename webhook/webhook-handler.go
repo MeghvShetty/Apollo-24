@@ -1,7 +1,6 @@
 package webhook
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -156,7 +155,7 @@ func WebhookHandler(c *gin.Context) {
 
 	// Print the received payload for debugging
 	fmt.Println("Received Webhook Payload:")
-	prettyPrintJSON(payload)
+	// prettyPrintJSON(payload)
 
 	// Process the webhook payload as needed (e.g., save to database, trigger actions, etc.)
 	var assignee string = payload.Issue.Fields.Assignee.DisplayName
@@ -169,11 +168,11 @@ func WebhookHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Webhook received and processed successfully"})
 }
 
-func prettyPrintJSON(v interface{}) {
-	b, err := json.MarshalIndent(v, "", "  ")
-	if err != nil {
-		fmt.Println("Error formatting JSON:", err)
-		return
-	}
-	fmt.Println(string(b))
-}
+// func prettyPrintJSON(v interface{}) {
+// 	b, err := json.MarshalIndent(v, "", "  ")
+// 	if err != nil {
+// 		fmt.Println("Error formatting JSON:", err)
+// 		return
+// 	}
+// 	fmt.Println(string(b))
+// }
