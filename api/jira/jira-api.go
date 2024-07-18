@@ -42,6 +42,7 @@ type AARep struct {
 	Description  string
 	AssigneeName string
 	SIRrating    []string
+	Changelog    string
 }
 
 /*

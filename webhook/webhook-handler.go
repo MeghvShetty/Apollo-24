@@ -9,12 +9,12 @@ import (
 )
 
 type WebhookPayload struct {
-	Timestamp          int64  `json:"timestamp"`
-	WebhookEvent       string `json:"webhookEvent"`
-	IssueEventTypeName string `json:"issue_event_type_name"`
-	User               User   `json:"user"`
-	Issue              Issue  `json:"issue"`
-	// Changelog Changelog `json:"changelog"`
+	Timestamp          int64     `json:"timestamp"`
+	WebhookEvent       string    `json:"webhookEvent"`
+	IssueEventTypeName string    `json:"issue_event_type_name"`
+	User               User      `json:"user"`
+	Issue              Issue     `json:"issue"`
+	Changelog          Changelog `json:"changelog"`
 }
 
 type User struct {
@@ -115,36 +115,36 @@ type Assignee struct {
 }
 
 type Status struct {
-	Self        string `json:"self"`
-	Description string `json:"description"`
-	IconUrl     string `json:"iconUrl"`
-	Name        string `json:"name"`
-	ID          string `json:"id"`
-	// StatusCategory StatusCategory `json:"statusCategory"`
+	Self           string         `json:"self"`
+	Description    string         `json:"description"`
+	IconUrl        string         `json:"iconUrl"`
+	Name           string         `json:"name"`
+	ID             string         `json:"id"`
+	StatusCategory StatusCategory `json:"statusCategory"`
 }
 
-// type StatusCategory struct {
-// 	Self      string `json:"self"`
-// 	ID        int    `json:"id"`
-// 	Key       string `json:"key"`
-// 	ColorName string `json:"colorName"`
-// 	Name      string `json:"name"`
-// }
+type StatusCategory struct {
+	Self      string `json:"self"`
+	ID        int    `json:"id"`
+	Key       string `json:"key"`
+	ColorName string `json:"colorName"`
+	Name      string `json:"name"`
+}
 
-// type Changelog struct {
-// 	ID    string       `json:"id"`
-// 	Items []ChangeItem `json:"items"`
-// }
+type Changelog struct {
+	ID    string       `json:"id"`
+	Items []ChangeItem `json:"items"`
+}
 
-// type ChangeItem struct {
-// 	Field      string      `json:"field"`
-// 	FieldType  string      `json:"fieldtype"`
-// 	FieldID    string      `json:"fieldId"`
-// 	From       interface{} `json:"from"`
-// 	FromString interface{} `json:"fromString"`
-// 	To         interface{} `json:"to"`
-// 	ToString   string      `json:"toString"`
-// }
+type ChangeItem struct {
+	Field      string      `json:"field"`
+	FieldType  string      `json:"fieldtype"`
+	FieldID    string      `json:"fieldId"`
+	From       interface{} `json:"from"`
+	FromString interface{} `json:"fromString"`
+	To         interface{} `json:"to"`
+	ToString   string      `json:"toString"`
+}
 
 func WebhookHandler(c *gin.Context) {
 	var payload WebhookPayload
@@ -166,9 +166,11 @@ func WebhookHandler(c *gin.Context) {
 		DueDate:      payload.Issue.Fields.CustomField10034,
 		Description:  payload.Issue.Fields.Description,
 		SIRrating:    payload.Issue.Fields.Labels,
+		Changelog:    payload.Issue.Fields.Status.StatusCategory.Key,
 	}
 
-	jira.CreateIssueAA(NewIssue)
+	// jira.CreateIssueAA(NewIssue)
+	fmt.Println(NewIssue)
 
 	c.JSON(http.StatusOK, gin.H{"message": "Webhook received and processed successfully"})
 }
