@@ -41,7 +41,7 @@ type AARep struct {
 	DueDate      string
 	Description  string
 	AssigneeName string
-	labels       []string
+	SIRrating    []string
 }
 
 /*
@@ -127,4 +127,47 @@ func CreateIssue(p *IssueTemplate) (string, error) {
 	return result, nil
 }
 
-func CreateIssueAA()
+func CreateIssueAA(p *AARep) (string, error) {
+	urlExt := "/rest/api/2/issue"
+	method := "POST"
+
+	// Issue naming convention
+	var IssueDsc string = p.Description + "/n Security Engineer" + p.AssigneeName
+
+	// Validate date formatting
+	var dueDateInput = strings.TrimSpace(p.DueDate)
+	_, err := time.Parse("2006-01-02", dueDateInput)
+	if err != nil {
+		return "", fmt.Errorf("invalid date format. please use yyyy-mm-dd.: %w", err)
+	}
+
+	// Static typed payload
+	payload := map[string]interface{}{
+		"fields": map[string]interface{}{
+			"description": IssueDsc,
+			"summary":     p.IssueName,
+			"issuetype": map[string]interface{}{
+				"name": "Story",
+			},
+			"project": map[string]interface{}{
+				"key": "GOV",
+			},
+			"duedate": p.DueDate,
+			"labels":  p.SIRrating,
+		},
+	}
+
+	// Encoding payload map[string]interface{} into Json data type
+	jsonData, err := json.Marshal(payload)
+	if err != nil {
+		return "", fmt.Errorf("error marshalling JSON: %w", err)
+	}
+
+	result, err := JiraAuth(method, urlExt, jsonData)
+	if err != nil {
+		return "", fmt.Errorf("failed to create issue: %w", err)
+	}
+
+	return result, nil
+
+}
