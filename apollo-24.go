@@ -17,6 +17,15 @@ func main() {
 	// 	DataClassification:    "Confidential",
 	// }
 
-	// fmt.Println(jira.CreateIssue(NewIssue))
+	// NewIssue := &jira.AARep{
+	// 	SIRrating:    []string{"SIRC"},
+	// 	IssueName:    "Testing",
+	// 	DueDate:      "2024-12-08",
+	// 	Description:  "Man is a Man",
+	// 	AssigneeName: "Megh ",
+	// }
+
+	// fmt.Println(jira.CreateIssueAA(NewIssue))
+	// // fmt.Println(jira.CreateIssue(NewIssue))
 	router.WebServer()
 }
