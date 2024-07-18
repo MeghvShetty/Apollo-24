@@ -1,10 +1,10 @@
 package webhook
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 
+	"github.com/The-Manchester-Project/Apollo-24/api/jira"
 	"github.com/gin-gonic/gin"
 )
 
@@ -156,30 +156,30 @@ func WebhookHandler(c *gin.Context) {
 
 	// Print the received payload for debugging
 	fmt.Println("Received Webhook Payload:")
-	prettyPrintJSON(payload)
+	// prettyPrintJSON(payload)
 
 	// Process the webhook payload as needed (e.g., save to database, trigger actions, etc.)
 
-	// NewIssue := &jira.AARep{
-	// 	IssueName:    payload.Issue.Fields.Summary,
-	// 	AssigneeName: payload.Issue.Fields.Assignee.DisplayName,
-	// 	DueDate:      payload.Issue.Fields.CustomField10034,
-	// 	Description:  payload.Issue.Fields.Description,
-	// 	SIRrating:    payload.Issue.Fields.Labels,
-	// 	Changelog:    payload.Issue.Fields.Status.StatusCategory.Key,
-	// }
+	NewIssue := &jira.AARep{
+		IssueName:    payload.Issue.Fields.Summary,
+		AssigneeName: payload.Issue.Fields.Assignee.DisplayName,
+		DueDate:      payload.Issue.Fields.CustomField10034,
+		Description:  payload.Issue.Fields.Description,
+		SIRrating:    payload.Issue.Fields.Labels,
+		Changelog:    payload.Issue.Fields.Status.Name,
+	}
 
 	// // jira.CreateIssueAA(NewIssue)
-	// fmt.Println(NewIssue)
+	fmt.Println(NewIssue)
 
 	c.JSON(http.StatusOK, gin.H{"message": "Webhook received and processed successfully"})
 }
 
-func prettyPrintJSON(v interface{}) {
-	b, err := json.MarshalIndent(v, "", "  ")
-	if err != nil {
-		fmt.Println("Error formatting JSON:", err)
-		return
-	}
-	fmt.Println(string(b))
-}
+// func prettyPrintJSON(v interface{}) {
+// 	b, err := json.MarshalIndent(v, "", "  ")
+// 	if err != nil {
+// 		fmt.Println("Error formatting JSON:", err)
+// 		return
+// 	}
+// 	fmt.Println(string(b))
+// }
