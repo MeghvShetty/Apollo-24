@@ -141,7 +141,7 @@ func CreateIssueAA(p *AARep) (string, error) {
 	// Static typed payload
 	payload := map[string]interface{}{
 		"fields": map[string]interface{}{
-			"description": p.Description + "/n Security Engineer" + p.AssigneeName,
+			"description": p.Description + "\n Security Engineer" + p.AssigneeName,
 			"summary":     p.IssueName,
 			"issuetype": map[string]interface{}{
 				"name": "Story",
