@@ -36,6 +36,14 @@ type IssueTemplate struct {
 	DataClassification    string `form:DataClassification" binding:"required"`
 }
 
+type AARep struct {
+	IssueName    string
+	DueDate      string
+	Description  string
+	AssigneeName string
+	labels       []string
+}
+
 /*
 	Jira auth handle api request use base auth.
 
@@ -92,7 +100,7 @@ func CreateIssue(p *IssueTemplate) (string, error) {
 	// Static typed payload
 	payload := map[string]interface{}{
 		"fields": map[string]interface{}{
-			"description": "Project Name: " + p.ProjectName + "\n Platform Name: " + p.PlatformName + "\n Lab Name: " + p.LabName + "\n SI Number: " + p.SINumber + "\n SI Link: " + p.SILink + "\n Data Classification: " + p.DataClassification + "\n BIA Link: " + p.BIARecord + "\n Solution Architect: " + p.SolutionArchitectName + "\n Project Overview: " + p.ProjectOverview,
+			"description": "Project Name: " + p.ProjectName + "\n Platform Name: " + p.PlatformName + "\n Lab Name: " + p.LabName + "\n SI Number: " + p.SINumber + "\n SI Link: " + p.SILink + "\n Data Classification: " + p.DataClassification + "\n BIA Link: " + p.BIARecord + "\n Solution Architect: " + p.SolutionArchitectName + "\n Project Overview: " + p.ProjectOverview + "\n SDA link :",
 			"summary":     ticketName,
 			"issuetype": map[string]interface{}{
 				"name": "Story",
@@ -118,3 +126,5 @@ func CreateIssue(p *IssueTemplate) (string, error) {
 
 	return result, nil
 }
+
+func CreateIssueAA()
