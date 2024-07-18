@@ -45,6 +45,11 @@ type AARep struct {
 	Changelog    string
 }
 
+type Payload struct {
+	Body string `json:"body"`
+	// Visibility Visibility `json:"visibility"`
+}
+
 /*
 	Jira auth handle api request use base auth.
 
@@ -142,7 +147,7 @@ func CreateIssueAA(p *AARep) (string, error) {
 	// Static typed payload
 	payload := map[string]interface{}{
 		"fields": map[string]interface{}{
-			"description": p.Description + "\n Security Engineer" + p.AssigneeName,
+			"description": p.Description + "\n Security Engineer: " + p.AssigneeName,
 			"summary":     p.IssueName,
 			"issuetype": map[string]interface{}{
 				"name": "Story",
@@ -167,5 +172,20 @@ func CreateIssueAA(p *AARep) (string, error) {
 	}
 
 	return result, nil
+
+}
+
+func AddComments(IssueKey, JiraTicket string) {
+	urlExt := "/rest/api/2/issue/" + IssueKey + "/comment"
+	method := "POST"
+	payload := Payload{
+		Body: "AA-Rep Jira Ticket: " + JiraTicket,
+	}
+
+	jsonData, err := json.Marshal(payload)
+	if err != nil {
+		fmt.Errorf("error marshalling JSON: %w", err)
+	}
+	JiraAuth(method, urlExt, jsonData)
 
 }
