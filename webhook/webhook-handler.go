@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/The-Manchester-Project/Apollo-24/api/jira"
 	"github.com/gin-gonic/gin"
 )
 
@@ -158,12 +159,16 @@ func WebhookHandler(c *gin.Context) {
 	// prettyPrintJSON(payload)
 
 	// Process the webhook payload as needed (e.g., save to database, trigger actions, etc.)
-	var assignee string = payload.Issue.Fields.Assignee.DisplayName
-	var IssueName string = payload.Issue.Fields.Summary
-	var DueDate string = payload.Issue.Fields.CustomField10034
-	var Description string = payload.Issue.Fields.Description
 
-	fmt.Println(assignee, IssueName, DueDate, Description)
+	NewIssue := &jira.AARep{
+		IssueName:    payload.Issue.Fields.Summary,
+		AssigneeName: payload.Issue.Fields.Assignee.DisplayName,
+		DueDate:      payload.Issue.Fields.CustomField10034,
+		Description:  payload.Issue.Fields.Description,
+		SIRrating:    payload.Issue.Fields.Labels,
+	}
+
+	jira.CreateIssueAA(NewIssue)
 
 	c.JSON(http.StatusOK, gin.H{"message": "Webhook received and processed successfully"})
 }
