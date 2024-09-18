@@ -69,8 +69,10 @@ func WebServer() {
 	})
 
 	// Load the certificate and key files
-	certFile := "/etc/letsencrypt/live/mcrproj.com/fullchain.pem"
-	keyFile := "/etc/letsencrypt/live/mcrproj.com/privkey.pem"
+	// certFile := "/etc/letsencrypt/live/mcrproj.com/fullchain.pem"
+	// keyFile := "/etc/letsencrypt/live/mcrproj.com/privkey.pem"
 
-	log.Fatal(router.RunTLS("0.0.0.0:443", certFile, keyFile))
+	// log.Fatal(router.RunTLS("0.0.0.0:443", certFile, keyFile))
+
+	log.Fatal(router.Run("0.0.0.0:80"))
 }
