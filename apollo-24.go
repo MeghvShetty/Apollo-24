@@ -1,6 +1,8 @@
 package main
 
-import "github.com/The-Manchester-Project/Apollo-24/router"
+import (
+	"fmt"
+)
 
 func main() {
 	// NewIssue := &jira.IssueTemplate{
@@ -27,6 +29,7 @@ func main() {
 	// jira.AddComments("A2-78", "GOV-2")
 	// fmt.Println(jira.CreateIssueAA(NewIssue))
 	// // fmt.Println(jira.CreateIssue(NewIssue))
-	router.WebServer()
+	//router.WebServer()
+	fmt.Println("Testing")
 
 }
