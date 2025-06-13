@@ -20,7 +20,7 @@ import (
 const BaseUrl string = "https://cavertech.atlassian.net"
 const cookie string = "atlassian.xsrf.token=052f0f6ae563178da122c7f109e7eaaf6bfbbf75_lin"
 
-const Authorization = "Basic bWVnaHZzaGV0dHlAY2F2ZXJ0ZWNoLmNvbTpBVEFUVDN4RmZHRjBZZVNsaDJmNThfNzBFaXZfa1MxZlR6ejBITGRhWnNoVTRTREVLc08zRHBtclNqeXl3YW5FS2FMb2RRa09qbDhfSmxMYlFsNmRwM3Q4UE5ILWMwNFBFYVFzUFFrRWtPNVluWUdVSmxaS3g0MDJEb01zZWY1NDRvRE9zb2FidmdDYmtkWG5MU3h3MXNnMTc5elVrTFkydEdqX1habktYV21LdWk3TnowZlFMejQ9MUZEQUNFOTY="
+const Authorization = "......"
 
 type IssueTemplate struct {
 	SINumber              string `form:SINumber" binding:"required"`
